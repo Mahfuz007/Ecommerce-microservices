@@ -1,8 +1,4 @@
-﻿using Carter;
-using Mapster;
-using MediatR;
-
-namespace Catalog.API.Features.UpdateProduct;
+﻿namespace Catalog.API.Features.UpdateProduct;
 
 public record UpateProductRequest(Guid Id, string Name, string Description, List<string> Category, string ImageFileUrl, decimal Price);
 public record UpdateProductResponse(bool IsSuccess);

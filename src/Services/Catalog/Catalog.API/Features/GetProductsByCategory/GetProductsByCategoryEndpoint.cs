@@ -1,10 +1,4 @@
-﻿using Carter;
-using Catalog.API.Models;
-using CommonBlocks.CQRS;
-using Mapster;
-using MediatR;
-
-namespace Catalog.API.Features.GetProductsByCategory;
+﻿namespace Catalog.API.Features.GetProductsByCategory;
 
 public record GetProductsByCategoryRequest(string Category) : IQuery<GetProductsByCategoryResponse>;
 public record GetProductsByCategoryResponse(IEnumerable<Product> Products);

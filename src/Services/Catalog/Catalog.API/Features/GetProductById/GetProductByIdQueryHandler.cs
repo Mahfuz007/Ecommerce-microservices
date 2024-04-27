@@ -1,8 +1,4 @@
-﻿using Catalog.API.Models;
-using CommonBlocks.CQRS;
-using Marten;
-
-namespace Catalog.API.Features.GetProductById;
+﻿namespace Catalog.API.Features.GetProductById;
 
 public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
 public record GetProductByIdResult(Product Product);

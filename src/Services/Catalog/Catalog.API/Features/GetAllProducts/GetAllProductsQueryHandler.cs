@@ -1,8 +1,4 @@
-﻿using Catalog.API.Models;
-using CommonBlocks.CQRS;
-using Marten;
-
-namespace Catalog.API.Features.GetAllProducts;
+﻿namespace Catalog.API.Features.GetAllProducts;
 
 public record GetAllProductsQuery() : IQuery<GetAllProductsResult>;
 public record GetAllProductsResult(List<Product> Products);

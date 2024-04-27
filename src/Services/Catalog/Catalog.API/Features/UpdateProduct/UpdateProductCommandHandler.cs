@@ -1,8 +1,4 @@
-﻿using Catalog.API.Models;
-using CommonBlocks.CQRS;
-using Marten;
-
-namespace Catalog.API.Features.UpdateProduct;
+﻿namespace Catalog.API.Features.UpdateProduct;
 
 public record UpateProductCommand(Guid Id, string Name, string Description, List<string> Category, string ImageFileUrl, decimal Price) : ICommand<UpdateProductResult>;
 public record UpdateProductResult(bool IsSuccess);

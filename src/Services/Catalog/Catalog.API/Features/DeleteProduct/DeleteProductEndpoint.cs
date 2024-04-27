@@ -1,8 +1,4 @@
-﻿using Carter;
-using Mapster;
-using MediatR;
-
-namespace Catalog.API.Features.DeleteProduct;
+﻿namespace Catalog.API.Features.DeleteProduct;
 
 //public record DeleteProductRequest(Guid Id);
 public record DeleteProductResponse(bool IsSuccess);

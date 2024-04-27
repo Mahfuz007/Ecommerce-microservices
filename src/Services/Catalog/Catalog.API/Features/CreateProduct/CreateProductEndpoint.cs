@@ -1,8 +1,4 @@
-﻿using Carter;
-using MediatR;
-using Mapster;
-
-namespace Catalog.API.Features.CreateProduct;
+﻿namespace Catalog.API.Features.CreateProduct;
 
 public record CreateProductRequest(string Name, string Description, List<string> Category, string ImageFileUrl, decimal Price);
 public record CreateProductResponse(Guid Id);
