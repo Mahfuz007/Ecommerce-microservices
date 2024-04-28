@@ -1,15 +1,16 @@
 ﻿namespace Catalog.API.Features.GetAllProducts;
 
-//public record GetAllProductsRequest()
-public record GetAllProductResponse(List<Product> Products);
+public record GetAllProductsRequest(int? PageNo = 1, int? PageSize = 10);
+public record GetAllProductResponse(IEnumerable<Product> Products);
 public class GetAllProductsEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapGet("/products", async (ISender sender) =>
+        app.MapGet("/products", async ([AsParameters]GetAllProductsRequest request, ISender sender) =>
         {
-            var result = await sender.Send(new GetAllProductsQuery());
-            var response = result.Adapt(result.Products);
+            var query = request.Adapt<GetAllProductsQuery>();
+            var result = await sender.Send(query);
+            var response = result.Adapt<GetAllProductResponse>();
             return response;
         })
           .WithName("GetAllProducts")
