@@ -14,8 +14,10 @@ builder.Services.AddMarten(opts =>
 }).UseLightweightSessions();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+builder.Services.AddHealthChecks().AddNpgSql(builder.Configuration.GetValue<string>("DatabaseSettings:ConnectionString")!);
 
 var app = builder.Build();
 app.MapCarter();
 app.UseExceptionHandler(options => { });
+app.MapHealthChecks("/health");
 app.Run();
