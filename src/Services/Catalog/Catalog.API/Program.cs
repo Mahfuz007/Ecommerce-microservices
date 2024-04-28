@@ -1,7 +1,3 @@
-using CommonBlocks.Behavior;
-using FluentValidation;
-using Microsoft.AspNetCore.Hosting;
-
 var builder = WebApplication.CreateBuilder(args);
 //Add services
 builder.Services.AddMediatR(config =>
@@ -16,6 +12,9 @@ builder.Services.AddMarten(opts =>
     opts.Connection(builder.Configuration.GetValue<string>("DatabaseSettings:ConnectionString")!);
 }).UseLightweightSessions();
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 var app = builder.Build();
 app.MapCarter();
+app.UseExceptionHandler(options => { });
 app.Run();

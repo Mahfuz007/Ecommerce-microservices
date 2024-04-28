@@ -7,7 +7,11 @@ public class GetProductByIdQueryHandler(IDocumentSession _session) : IQueryHandl
 {
     public async Task<GetProductByIdResult> Handle(GetProductByIdQuery query, CancellationToken cancellationToken)
     {
-        var result = await _session.LoadAsync<Product>(query.Id, cancellationToken);
-        return new GetProductByIdResult(result);
+        var product = await _session.LoadAsync<Product>(query.Id, cancellationToken);
+        if(product == null)
+        {
+            throw new ProductNotFoundException(query.Id);
+        }
+        return new GetProductByIdResult(product);
     }
 }
