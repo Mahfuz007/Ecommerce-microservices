@@ -8,7 +8,7 @@ public class BasketRepository(IDocumentSession _session) : IBasketRepository
     public async Task<ShoppingCart> GetBasket(string userName, CancellationToken cancellationToken)
     {
         var basket = await _session.LoadAsync<ShoppingCart>(userName, cancellationToken);
-        return basket;
+        return basket!;
     }
 
     public async Task<string> StoreBasket(ShoppingCart cart, CancellationToken cancellationToken)
