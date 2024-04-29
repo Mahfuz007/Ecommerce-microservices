@@ -1,1 +1,9 @@
-﻿
+﻿global using Basket.API.Entities;
+global using CommonBlocks.CQRS;
+global using Carter;
+global using MediatR;
+global using Mapster;
+global using Basket.API.Repositories;
+global using FluentValidation;
+global using Marten;
+global using CommonBlocks.Behavior;
