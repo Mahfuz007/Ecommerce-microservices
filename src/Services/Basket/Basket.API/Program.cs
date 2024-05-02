@@ -1,4 +1,5 @@
 using CommonBlocks.Exceptions.Handler;
+using Discount.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
 //Add Service Registration
@@ -25,6 +26,11 @@ builder.Services.AddStackExchangeRedisCache(opt =>
 });
 
 builder.Services.Decorate<IBasketRepository, BasketCacheRepository>();
+
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(option =>
+{
+    option.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl")!);
+});
 
 var app = builder.Build();
 
