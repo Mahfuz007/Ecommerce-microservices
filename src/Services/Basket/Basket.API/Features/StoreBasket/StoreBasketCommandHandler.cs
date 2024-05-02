@@ -23,16 +23,16 @@ public class StoreBasketCommandHandler(IBasketRepository _repository, DiscountPr
             UserName = command.Cart.UserName,
             Items = command.Cart.Items
         };
-        await DeductDiscount(basket);
+        await DeductDiscount(basket, cancellationToken);
         var result = await _repository.StoreBasket(basket, cancellationToken);
         return new StoreBasketResult(result);
     }
 
-    private async Task DeductDiscount(ShoppingCart cart)
+    private async Task DeductDiscount(ShoppingCart cart, CancellationToken cancellationToken)
     {
         foreach(var item in cart.Items)
         {
-            var coupon = await _discountClient.GetDiscountAsync(new GetDiscountRequest { Name = item.ProductName });
+            var coupon = await _discountClient.GetDiscountAsync(new GetDiscountRequest { Name = item.ProductName }, cancellationToken: cancellationToken);
             item.Price -= coupon.Amount;
         }
     }
