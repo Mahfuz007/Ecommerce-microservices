@@ -33,7 +33,7 @@ public class StoreBasketCommandHandler(IBasketRepository _repository, DiscountPr
         foreach(var item in cart.Items)
         {
             var coupon = await _discountClient.GetDiscountAsync(new GetDiscountRequest { Name = item.ProductName });
-            item.Price = coupon.Amount;
+            item.Price -= coupon.Amount;
         }
     }
 }
