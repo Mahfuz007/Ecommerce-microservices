@@ -26,7 +26,7 @@ public record Payment
         ArgumentException.ThrowIfNullOrWhiteSpace(cardNumber);
         ArgumentException.ThrowIfNullOrWhiteSpace(Cvv);
         ArgumentException.ThrowIfNullOrWhiteSpace(expiryDate);
-        ArgumentOutOfRangeException.ThrowIfNotEqual(Cvv.Length, 3);
+        ArgumentOutOfRangeException.ThrowIfLessThan(Cvv.Length, 3);
 
         return new Payment(name, cardNumber, Cvv, expiryDate, paymentMethod);
     }

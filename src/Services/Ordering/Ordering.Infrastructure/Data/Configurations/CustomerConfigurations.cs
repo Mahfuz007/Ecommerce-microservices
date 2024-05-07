@@ -14,5 +14,6 @@ public class CustomerConfigurations : IEntityTypeConfiguration<Customer>
             );
         builder.Property(o => o.Name).HasMaxLength(100).IsRequired();
         builder.Property(o => o.Email).IsRequired();
+        builder.HasIndex(o => o.Email).IsUnique();
     }
 }
