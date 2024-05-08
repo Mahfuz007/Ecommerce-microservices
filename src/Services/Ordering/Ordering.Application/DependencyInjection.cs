@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommonBlocks.Behavior;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -8,9 +9,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMediatR(opt =>
+        services.AddMediatR(config =>
         {
-            opt.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            config.AddOpenBehavior(typeof(ValidatorBehavior<,>));
+            config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
         return services;
     }
