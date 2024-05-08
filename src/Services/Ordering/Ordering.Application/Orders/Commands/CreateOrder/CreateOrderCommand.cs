@@ -1,10 +1,8 @@
 ﻿namespace Ordering.Application.Orders.Commands.CreateOrder;
 
-public record CreateOrderCommand(OrderDto Order) : ICommand<CreateOrderResult>
-{
-}
+public record CreateOrderCommand(OrderDto Order) : ICommand<CreateOrderResult>;
 
-public record CreateOrderResult(string OrderName) { }
+public record CreateOrderResult(string OrderName);
 
 public class CreateOrderValidator : AbstractValidator<CreateOrderCommand>
 {

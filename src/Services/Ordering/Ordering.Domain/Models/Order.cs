@@ -40,7 +40,7 @@ public class Order : Aggregrator<OrderId>
     public void Update(OrderName name, Address shippingAddress, Address billingAddress, Payment paymentDetails, OrderStatus status)
     {
         Name = name;
-        ShippingAddress = ShippingAddress;
+        ShippingAddress = shippingAddress;
         BillingAddress = billingAddress;
         PaymentDetails = paymentDetails;
         Status = status;
