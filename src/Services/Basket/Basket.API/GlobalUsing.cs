@@ -7,3 +7,4 @@ global using Basket.API.Repositories;
 global using FluentValidation;
 global using Marten;
 global using CommonBlocks.Behavior;
+global using Basket.API.Dtos;

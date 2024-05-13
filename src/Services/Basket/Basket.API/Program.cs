@@ -1,5 +1,6 @@
 using CommonBlocks.Exceptions.Handler;
 using Discount.Grpc;
+using CommonBlocks.Messaging.MassTransite;
 
 var builder = WebApplication.CreateBuilder(args);
 //Add Service Registration
@@ -31,6 +32,8 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
 {
     option.Address = new Uri(builder.Configuration.GetValue<string>("GrpcSettings:DiscountUrl")!);
 });
+
+builder.Services.AddMessageBroker(builder.Configuration);
 
 var app = builder.Build();
 

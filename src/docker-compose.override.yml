@@ -39,6 +39,17 @@ services:
     restart: always
     ports:
       - "1433:1433"
+  
+  messagebroker:
+    container_name: messagebroker
+    hostname: ecommerce-mq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   catalog.api:
     container_name: catalog.api
@@ -61,10 +72,14 @@ services:
       - "DatabaseSettings:ConnectionString=Server=basketdb;Port=5432;Database=Basketdb;User Id=admin;Password=admin1234"
       - "DatabaseSettings:Redis=distributedcache:6379"
       - "GrpcSettings:DiscountUrl=http://discount.grpc:8080"
+      - "MessageBroker:host=amqp://ecommerce-mq:5672"
+      - "MessageBroker:userName=guest"
+      - "MessageBroker:password=guest"
     depends_on:
       - basketdb
       - distributedcache
       - discount.grpc
+      - messagebroker
     ports:
       - "6002:8080"
       - "6062:8081"
@@ -80,6 +95,21 @@ services:
     ports:
       - "6003:8080"
       - "6063:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=Mahfuz1234;Encrypt=false;TrustServerCertificate=true"
+      - "MessageBroker:host=amqp://ecommerce-mq:5672"
+      - "MessageBroker:userName=guest"
+      - "MessageBroker:password=guest"
+    ports:
+      - "6004:8080"
+      - "6064:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

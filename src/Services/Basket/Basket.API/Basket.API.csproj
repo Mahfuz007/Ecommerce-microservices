@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\CommonBlocks\CommonBlocks.Messaging\CommonBlocks.Messaging.csproj" />
     <ProjectReference Include="..\..\..\CommonBlocks\CommonBlocks\CommonBlocks.csproj" />
   </ItemGroup>
 

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using CommonBlocks.Messaging.MassTransite;
 
 namespace Ordering.Application;
 
@@ -15,6 +16,7 @@ public static class DependencyInjection
             config.AddOpenBehavior(typeof(ValidatorBehavior<,>));
             config.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
+        services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
         return services;
     }
 }
